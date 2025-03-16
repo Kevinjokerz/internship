@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    /* Khung ngoài */
+}
+
+th,
+td {
+    border: 1px solid #999;
+    padding: 2px;
+    vertical-align: top;
+    text-align: left;
+    font-size: 0.7rem;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: 600;
+}
+
+.year-col {
+    background-color: #333;
+    color: #fff;
+    writing-mode: sideways-lr;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    width: 30px;
+}
+
+tbody tr:last-child td {
+    font-weight: bold;
+}
+
+.col-year {
+    width: 5%;
+}
+
+.col-fall-code {
+    width: 10%;
+}
+
+.col-fall-name {
+    width: 30%;
+}
+
+.col-fall-credit {
+    width: 5%;
+}
+
+.col-spring-code {
+    width: 10%;
+}
+
+.col-spring-name {
+    width: 30%;
+}
+
+.col-spring-credit {
+    width: 5%;
+}
+
+.col-total {
+    width: 5%;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 60%;
+    max-width: 600px;
+    border-radius: 6px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #000;
+}
+
+.clickable {
+    text-decoration: underline;
+    cursor: pointer;
+}

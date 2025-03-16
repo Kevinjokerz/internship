@@ -1,0 +1,1 @@
+export * from './degre-plans.service'
