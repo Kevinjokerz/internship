@@ -21,6 +21,8 @@ class DegreePlanService {
         .leftJoinAndSelect('planner.semester', 'semesters')
         .leftJoinAndSelect('planner.plannedCourses', 'planned_courses')
         .leftJoinAndSelect('planned_courses.course', 'courses')
+        .leftJoinAndSelect('courses.prerequisites', 'prerequisites')
+        .leftJoinAndSelect('prerequisites.prereqCourse', 'prereqCourse')
         .where('courses.isActive = :active', {active: true})
         .getMany();
 

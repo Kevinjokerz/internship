@@ -38,10 +38,37 @@ function groupByYear(planners) {
   }, {});
 }
 
-function showModal(description) {
+function showModal(course) {
   const modal = document.getElementById("courseModal");
+
+  const titleEl = document.getElementById("courseTitle");
+  const prereqEl = document.getElementById("coursePrereqs");
   const descriptionPara = document.getElementById("courseDescription");
-  descriptionPara.textContent = description;
+
+  const codeTitle = course.courseNo
+    ? `${course.courseCode} ${course.courseNo}`
+    : course.courseCode;
+  titleEl.textContent = `${codeTitle} - ${course.courseName}`;
+
+  if (course.prerequisites && course.prerequisites.length > 0) {
+    const prereqCodes = course.prerequisites.map((p) => {
+      const pc = p.prereqCourse;
+      if (!pc) return "";
+      const pcTitle = pc.courseNo ? `${pc.courseCode} ${pc.courseNo}` : pc.courseCode;
+
+      if(p.description) {
+        return `${p.description} ${pcTitle}`;
+      } else {
+        return pcTitle;
+      }
+    });
+
+    const prereqLine = prereqCodes.join(" and ");
+    prereqEl.innerHTML = `<strong>Prerequisite:</strong> ${prereqLine}`;
+  } else {
+    prereqEl.innerHTML = "";
+  }
+  descriptionPara.textContent = course.description || "";
   modal.style.display = "block";
 }
 
@@ -123,18 +150,16 @@ function renderDegreePlan(planners) {
 
       if (fallCourses[i]) {
         const c = fallCourses[i].course;
-
-        if (c.description) {
-          console.log(c.description);
-          fallCourseCodeCell.textContent = `${c.courseCode}`;
+        fallCourseCodeCell.textContent =
+          c.courseNo == null
+            ? `${c.courseCode}`
+            : `${c.courseCode} ${c.courseNo}`;
+        if (c.description || (c.prerequisites && c.prerequisites.length > 0)) {
           fallCourseCodeCell.classList.add("clickable");
           fallCourseCodeCell.addEventListener("click", () => {
-            showModal(c.description);
+            showModal(c);
           });
-        } else {
-          fallCourseCodeCell.textContent = `${c.courseCode}`;
         }
-
         fallCourseNameCell.textContent = c.isCoreCurriculum
           ? `${c.courseName}*`
           : `${c.courseName}`;
@@ -147,15 +172,15 @@ function renderDegreePlan(planners) {
 
       if (springCourses[i]) {
         const c = springCourses[i].course;
-        if (c.description) {
-          console.log(c.description);
-          springCourseCodeCell.textContent = `${c.courseCode}`;
+        springCourseCodeCell.textContent =
+          c.courseNo == null
+            ? `${c.courseCode}`
+            : `${c.courseCode} ${c.courseNo}`;
+        if (c.description || (c.prerequisites && c.prerequisites.length > 0)) {
           springCourseCodeCell.classList.add("clickable");
           springCourseCodeCell.addEventListener("click", () => {
-            showModal(c.description);
+            showModal(c);
           });
-        } else {
-          springCourseCodeCell.textContent = `${c.courseCode}`;
         }
         springCourseNameCell.textContent = c.isCoreCurriculum
           ? `${c.courseName}*`

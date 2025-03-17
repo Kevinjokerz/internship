@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany} from "typeorm"
-import {SubjectCategories, CoursesLevels, PlannedCourses} from './index'
+import {SubjectCategories, CoursesLevels, PlannedCourses, Prerequisites} from './index'
 
 @Entity('courses')
 export class Courses {
@@ -11,6 +11,9 @@ export class Courses {
 
     @Column({name: 'course_name', type: 'varchar', length: 255, nullable: false, unique: true})
     courseName!: string;
+
+    @Column({name: 'course_no', type: 'varchar', length: 20})
+    courseNo: string;
 
     @Column({name: 'credit_hours', type: 'int', default: 0, nullable: false})
     creditHours!: number;
@@ -38,5 +41,10 @@ export class Courses {
     @OneToMany(() => PlannedCourses, (plannedCourse) => plannedCourse.course)
     plannedCourses: PlannedCourses[];
 
+    @OneToMany(() => Prerequisites, (prereq) => prereq.plannedCourseId)
+    prerequisites: Prerequisites[];
+
+    @OneToMany(() => Prerequisites, (prereq) => prereq.prereqCourse)
+    prereqFor: Prerequisites[];
 
 }
