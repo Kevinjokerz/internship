@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm"
 import { Planners } from './index'
 
 @Entity('semesters')

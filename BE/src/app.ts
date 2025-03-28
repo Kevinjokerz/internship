@@ -14,15 +14,14 @@ const app = express();
 const options: CorsOptions = {
     origin: '*',
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    allowedHeaders: '',
+    allowedHeaders: '*',
     credentials: true,
   };
 app.use(cors(options));
 app.use(helmet());
 app.use(express.json());
 app.use('/api',apiRouter);
-
-//app.use(errorHandler);
+app.use(errorHandler);
 
 
 export default app;

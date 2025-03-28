@@ -7,7 +7,7 @@ export class Planners {
     plannerId!: number;
 
     @Column({name: 'year_number', type: 'int', nullable: false})
-    yearNumber!: string;
+    yearNumber!: number;
 
     @Column({name: 'season', type: 'enum', enum: ['Fall', 'Spring', 'Summer', 'Winter']})
     season: string;

@@ -6,6 +6,7 @@ class DegreePlanController {
         const degreePlan = await degreePlanService.getCourseDegreePlan();
         res.send(degreePlan);
     }
+
 }
 
 const degreePlanController = new DegreePlanController();

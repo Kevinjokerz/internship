@@ -1,0 +1,31 @@
+#navBar {
+    top: 0;
+}
+
+#navBar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+#navBar li {
+    float: left;
+}
+
+#navBar a {
+    display: inline-block;
+    color: white;
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#navBar a:hover:not(.active) {
+    background-color: rgb(30, 97, 91);
+}
+
+.active {
+    background-color: rgb(68, 66, 66);
+}

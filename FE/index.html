@@ -3,11 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <title>Degree Plan</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/sample-degree-plan.css" />
+    <link rel="stylesheet" href="assets/css/navbar.css" />
   </head>
   <body>
+    <nav id="navBar">
+      <ul>
+        <li><a class="active" href="index.html">Academic Map</a></li>
+        <li><a href="courses-controller.html">Courses Controller</a></li>
+        <li><a href="department-controller.html">Department Controller</a></li>
+        <li><a href="degree-plan-controller.html">Degree Plan Controller</a></li>
+      </ul>
+    </nav>
     <main>
-      <h1>Degree Plan</h1>
+      <div class="academic-map-container">
+          <img src="assets/img/academic-map-pic.jpg" alt="Banner" class="banner-image">
+          <div class="overlay"></div>
+          <div class="academic-map-text">
+            <h1>COLLEGE OF ENGINEERING</h1>
+            <h2>Bachelor of Science, Computer Engineering</h2>
+            <p>Four-Year Academic Map 2023-2024</p>
+          </div>
+      </div>
       <!-- Dynamic displaying courses-->
       <div id="app"></div>
     </main>
@@ -21,7 +38,7 @@
         <p id="courseDescription"></p>
       </div>
     </div>
-
-    <script src="app.js"></script>
+    <script src="assets/src/global.js"></script>
+    <script src="assets/src/app.js"></script>
   </body>
 </html>

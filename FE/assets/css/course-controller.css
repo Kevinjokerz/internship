@@ -1,0 +1,48 @@
+/* assets/css/degreePlanController.css */
+/* New container for buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+#save-btn,
+#cancel-btn,
+#add-new {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#save-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+#save-btn:disabled,
+#cancel-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#save-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+#cancel-btn:hover:not(:disabled) {
+    background-color: #d32f2f;
+}
+
+#add-new {
+    background-color: #4CAF50;
+    color: white;
+}

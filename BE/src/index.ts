@@ -1,4 +1,3 @@
-import * as mysql2 from 'mysql2';
 import app from './app';
 import { AppDataSource } from './data-source';
 

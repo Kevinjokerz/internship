@@ -1,3 +1,4 @@
+/* assets/css/degreePlan.css */
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +8,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
-    color: #333;
+    color: #000000;
 }
 
 main {
@@ -29,12 +30,10 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
     border: 1px solid #333;
-    /* Khung ngoài */
 }
 
 th,
 td {
-    border: 1px solid #999;
     padding: 2px;
     vertical-align: top;
     text-align: left;
@@ -42,18 +41,26 @@ td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #b8a7a779;
     font-weight: 600;
 }
 
+tr:nth-child(odd):not(:last-child) {
+    background-color: #f4eeee;
+}
+
+tr:last-child {
+    border: 1px solid #000000;
+}
+
 .year-col {
-    background-color: #333;
+    background-color: rgb(0, 0, 0);
     color: #fff;
     writing-mode: sideways-lr;
     text-align: center;
     vertical-align: middle;
-    font-weight: bold;
     width: 30px;
+    font-size: large;
 }
 
 tbody tr:last-child td {
@@ -65,6 +72,7 @@ tbody tr:last-child td {
 }
 
 .col-fall-code {
+    
     width: 10%;
 }
 
@@ -73,6 +81,7 @@ tbody tr:last-child td {
 }
 
 .col-fall-credit {
+    border-right: 1px solid #000000;
     width: 5%;
 }
 
@@ -89,6 +98,7 @@ tbody tr:last-child td {
 }
 
 .col-total {
+    border: 1px solid #000000;
     width: 5%;
 }
 
@@ -102,6 +112,7 @@ tbody tr:last-child td {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
 }
 
 .modal-content {
@@ -130,4 +141,45 @@ tbody tr:last-child td {
 .clickable {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.academic-map-container {
+    position: relative;
+    width: 100%;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.academic-map-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    font-family: sans-serif;
+    white-space: nowrap;
+    padding: 0 1rem;
+}
+
+.academic-map-text h1 {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    text-transform: uppercase;
+}
+
+.academic-map-text h2 {
+    font-size: 1.2rem;
+    margin: 0.3rem 0;
+}
+
+.academic-map-text p {
+    font-size: 1rem;
+    margin: 0.3rem 0;
 }

@@ -12,14 +12,14 @@ export class Courses {
     @Column({name: 'course_name', type: 'varchar', length: 255, nullable: false, unique: true})
     courseName!: string;
 
-    @Column({name: 'course_no', type: 'varchar', length: 20})
-    courseNo: string;
+    @Column({name: 'course_no', type: 'varchar', length: 20, nullable: true})
+    courseNo: string | null;
 
     @Column({name: 'credit_hours', type: 'int', default: 0, nullable: false})
     creditHours!: number;
 
-    @Column({name: 'description', type: 'text'})
-    description: string;
+    @Column({name: 'description', type: 'text', nullable: true})
+    description: string | null;
 
     @ManyToOne(() => SubjectCategories, (category) => category.courses, { onDelete: 'CASCADE'})
     @JoinColumn({name : 'subject_category_id'})
@@ -36,7 +36,7 @@ export class Courses {
     isActive: boolean;
 
     @Column({name: 'sort_order', type: 'int', default: 0, nullable: false})
-    sortOrder: boolean;
+    sortOrder: number;
 
     @OneToMany(() => PlannedCourses, (plannedCourse) => plannedCourse.course)
     plannedCourses: PlannedCourses[];

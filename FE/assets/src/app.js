@@ -1,25 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   loadDegreePlan();
-
-  document.getElementById("closeModal").addEventListener("click", () => {
-    document.getElementById("courseModal").style.display = "none";
-  });
-
-  window.addEventListener("click", (event) => {
-    const modal = document.getElementById("courseModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
+  initModal("courseModal", "closeModal");
 });
 
 async function loadDegreePlan() {
   try {
-    const response = await fetch(
-      "http://localhost:3000/api/sample/degree-plan"
-    );
-    const planner = await response.json();
-
+    planner = await fetchCourse();
     renderDegreePlan(planner);
   } catch (error) {
     console.error("Error fetching degree plan:", error);
@@ -81,7 +67,7 @@ function renderDegreePlan(planners) {
   let totalCredit4Years = 0;
 
   for (const year in plannerByYear) {
-    const yearPlanners = plannerByYear[year];
+    const yearPlanners = plannerByYear[year] || [];
 
     const fallPlanner = yearPlanners.find((p) => p.season === "Fall");
     const springPlanner = yearPlanners.find((p) => p.season === "Spring");
@@ -120,12 +106,12 @@ function renderDegreePlan(planners) {
     headerRow.appendChild(yearTh);
 
     const fallHeader = document.createElement("th");
-    fallHeader.textContent = `${fallPlanner.semester.semesterName} ${fallPlanner.season}`;
+    fallHeader.textContent = fallPlanner && fallPlanner.semester && fallPlanner.semester.semesterName ? `${fallPlanner.semester.semesterName} ${fallPlanner.season}` : `Semester 1 Fall`;
     fallHeader.colSpan = 3;
     headerRow.appendChild(fallHeader);
 
     const springHeader = document.createElement("th");
-    springHeader.textContent = `${springPlanner.semester.semesterName} ${springPlanner.season}`;
+    springHeader.textContent = springPlanner && springPlanner.semester && springPlanner.semesterName ? `${springPlanner.semester.semesterName} ${springPlanner.season}` : `Semester 2 Spring`;
     springHeader.colSpan = 3;
     headerRow.appendChild(springHeader);
 
