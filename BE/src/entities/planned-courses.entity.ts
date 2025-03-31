@@ -7,6 +7,12 @@ export class PlannedCourses {
     @PrimaryGeneratedColumn({name: 'planned_course_id'})
     plannedCourseId!: number;
 
+    @Column({name: 'is_active', type: 'boolean', default: true, nullable: false})
+    isActive: boolean;
+
+    @Column({name: 'sort_order', type: 'int', default: 0, nullable: false})
+    sortOrder: number;
+
     @ManyToOne(() => Courses, (course) => course.plannedCourses, { onDelete: 'CASCADE', nullable: false})
     @JoinColumn({name : 'course_id'})
     course: Courses;

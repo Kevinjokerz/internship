@@ -89,7 +89,8 @@ class SubjectCategoryService {
       if(!existedDepartment) {
       throw new NotFoundError(`Department with ID ${departmentId} Not Found`)
       };
-      console.log(existedDepartment);
+
+      
       const existedCourseInDepartment = await transactionEntityManager.find(Courses, {
         where: {category: existedDepartment}
       })

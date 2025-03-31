@@ -29,6 +29,19 @@ class CourseController {
     const newCourse = await courseService.createNewCourseService(payload);
     res.status(201).send({newCourse})
   }
+
+  async deleteCourseByCourseId (req: Request, res: Response) {
+    const { courseId } = req.params;
+    const verifiedCourseId = parseInt(courseId, 10);
+
+    if(isNaN(verifiedCourseId)) {
+      res.status(400).send({message: "Invalid course ID"});
+      return;
+    }
+
+    await courseService.deleteCourseByCourseId(verifiedCourseId);
+    res.status(200).send({message: `Course with ID ${verifiedCourseId} deleted successfully`})
+  }
 }
 
 const courseController = new CourseController();

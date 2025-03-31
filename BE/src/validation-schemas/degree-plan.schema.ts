@@ -20,4 +20,8 @@ const updateDegreePlanValidator = Joi.object<updateDegreePlanPayload>().keys({
     .required(),
 });
 
-export { updateDegreePlanValidator };
+const getCoursesByAcademicMapIdValidator = Joi.object({
+  academicMapId: Joi.number().integer().positive().required()
+})
+
+export { updateDegreePlanValidator, getCoursesByAcademicMapIdValidator };

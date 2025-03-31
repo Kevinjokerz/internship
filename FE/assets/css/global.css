@@ -19,7 +19,7 @@ h1 {
 }
 
 table {
-    width: 80%;
+    width: 90%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
@@ -39,9 +39,13 @@ th {
     font-weight: bold;
     font-size: small;
     position: sticky;
-    top: 0;
+    top: 40px;
     text-align: center;
     z-index: 10;
+}
+
+td:first-child {
+    width: 5px;
 }
 
 tr:nth-child(even) {
@@ -221,4 +225,48 @@ input.number-input {
 
 .department-row:hover .delete-btn {
     display: inline-block;
+}
+
+
+.academic-map-row:hover .delete-btn {
+    display: inline-block;
+}
+
+.course-row:hover .delete-btn {
+    display: inline-block;
+}
+
+.course-in-academic-map-row:hover .delete-btn {
+    display: inline-block;
+}
+
+.actions {
+    display: table-cell;
+    gap: 8px;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.view-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.view-btn:hover {
+    background-color: #5a6268;
 }

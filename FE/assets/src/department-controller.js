@@ -123,7 +123,7 @@ async function handleSaveDepartment(tableBodySelector) {
 
         const updatedDepartment = {
             categoryId: department.departmentId,
-            categoryName: row.querySelector('td[data-field="departmentName"]').innerText,
+            categoryName: row.querySelector('td[data-field="departmentName"]').innerText.trim(),
             isActive: row.querySelector('td[data-field="isActive"] input[type="checkbox"]').checked,
         }
 
@@ -174,7 +174,10 @@ async function handleSaveDepartment(tableBodySelector) {
         const data = await response.json();
         if(response.ok) {
             alert(data.message);
+            loadDepartment();
             return;
+        }else {
+            throw new Error(data.error || "Failed to update department")
         }
     } catch (error) {
         console.error("Error saving data:", error);

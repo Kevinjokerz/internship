@@ -1,7 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany, Unique} from "typeorm"
 import {SubjectCategories, CoursesLevels, PlannedCourses, Prerequisites} from './index'
 
 @Entity('courses')
+@Unique(['courseCode', 'courseNo', 'courseName'])
 export class Courses {
     @PrimaryGeneratedColumn({name: 'course_id'})
     courseId!: number;

@@ -51,4 +51,8 @@ const createNewCourseValidator = Joi.object<createNewCoursePayload>().keys({
 })
 
 
-export { updateCourseInfoValidator, batchUpdateCourseInfoValidator, createNewCourseValidator };
+const deleteCourseParamValidator = Joi.object({
+  courseId: Joi.number().integer().positive().required()
+})
+
+export { updateCourseInfoValidator, batchUpdateCourseInfoValidator, createNewCourseValidator, deleteCourseParamValidator };

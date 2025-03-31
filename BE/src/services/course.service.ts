@@ -1,5 +1,5 @@
 import { AppDataSource } from "../data-source";
-import { Courses, SubjectCategories, CoursesLevels } from "../entities";
+import { Courses, SubjectCategories, CoursesLevels, PlannedCourses } from "../entities";
 import { Repository } from "typeorm";
 import { batchUpdateCourseInfoDTO, createNewCourseDTO } from "../dtos";
 import { BadRequestError, ConflictError, NotFoundError } from "../types/http-error.type";
@@ -145,8 +145,29 @@ class CourseService {
       const savedCourse = await transactionEntityManager.save(Courses, course);
       return savedCourse;
     });
+  }
 
+  async deleteCourseByCourseId (courseId: number) {
+    await AppDataSource.transaction(async (transactionEntityManager) => {
+      const existedCourse = await transactionEntityManager.findOne(Courses, {
+        where: {courseId}
+      })
+      
+      if(!existedCourse) {
+        throw new NotFoundError(`Course with ID ${courseId} Not Found`)
+      }
 
+      const coExistedPlannedCourse = await transactionEntityManager.find(PlannedCourses, {
+        where: {course: existedCourse}
+      })
+
+      if(coExistedPlannedCourse.length > 0) {
+        await transactionEntityManager.delete(PlannedCourses, { course: existedCourse});
+      }
+
+      await transactionEntityManager.delete(Courses, {courseId})
+    });
+    return true;
   }
 }
 

@@ -72,6 +72,7 @@ function displayCourses() {
     const isValidDepartment = departments.includes(course.department);
     const isValidCourseLevel = courseLevels.includes(course.courseLevel);
     const row = document.createElement("tr");
+    row.classList.add("course-row")
     row.innerHTML = `
       <td>${course.courseId}</td>
       <td data-field="department" data-index="${index}" data-initial-value="${course.department}" ${!isValidDepartment ? 'class="invalid-deparment"' : ""}>
@@ -109,6 +110,9 @@ function displayCourses() {
       </td>
       <td contenteditable="false" data-field="isActive" data-index="${index}" data-initial-value="${course.isActive}">
         <input type="checkbox" ${course.isActive ? "checked" : ""} class="editable">
+      </td>
+      <td class="delete-column">
+        <button class="delete-btn" data-id="${course.courseId}"><i class="fa-solid fa-trash"></i></button>
       </td>
     `;
     tableBody.appendChild(row);
@@ -249,7 +253,6 @@ function displayCourses() {
   });
 
   const dropboxes = document.querySelectorAll('select[class~="editable"]')
-  console.log("number of dropboxes found: ", dropboxes.length)
   dropboxes.forEach((dropbox) => {
     dropbox.addEventListener("change", () => {
       const cell = dropbox.closest("td");
@@ -338,14 +341,14 @@ async function handleSaveCourses(tableBodySelector) {
 
     const description = row.querySelector(
       'td[data-field="description"]'
-    ).innerText;
+    ).innerText.trim();
     const updatedCourse = {
       courseId: course.courseId,
-      courseCode: row.querySelector('td[data-field="courseCode"]').innerText,
-      courseNo: row.querySelector('td[data-field="courseNumber"]').innerText,
-      courseName: row.querySelector('td[data-field="courseName"]').innerText,
+      courseCode: row.querySelector('td[data-field="courseCode"]').innerText.trim(),
+      courseNo: row.querySelector('td[data-field="courseNumber"]').innerText.trim(),
+      courseName: row.querySelector('td[data-field="courseName"]').innerText.trim(),
       creditHours: parseInt(
-        row.querySelector('td[data-field="creditHours"]').innerText
+        row.querySelector('td[data-field="creditHours"] input').value, 10
       ),
       description: description === "" ? null : description,
       isCoreCurriculum: row.querySelector(
@@ -355,11 +358,11 @@ async function handleSaveCourses(tableBodySelector) {
         'td[data-field="isActive"] input[type="checkbox"]'
       ).checked,
       sortOrder: parseInt(
-        row.querySelector('td[data-field="sortOrder"]').innerText
+        row.querySelector('td[data-field="sortOrder"] input').value, 10
       ),
-      courseLevel: row.querySelector('td[data-field="courseLevel"]').innerText,
-      courseCategory: row.querySelector('td[data-field="department"]')
-        .innerText,
+      courseLevel: row.querySelector('td[data-field="courseLevel"] select').value,
+      courseCategory: row.querySelector('td[data-field="department"] select')
+        .value,
     };
 
     const courseFields = [
@@ -479,10 +482,36 @@ async function handleSaveCourses(tableBodySelector) {
       alert(data.message);
       await loadCourses();
       window.scrollTo({ top: 0, behavior: "instant" });
+    } else {
+      throw new Error(data.error || "Failed to update Courses")
     }
   } catch (error) {
     console.error("Error saving data:", error);
     alert("Error saving data: " + error);
+  }
+}
+
+async function deleteCourse(courseId) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/sample/delete-course/${courseId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+    if(response.ok) {
+      alert("Course deleted successfully");
+      await loadCourses();
+      window.scrollTo({top: 0, behavior: "instant"});
+    } else {
+      const data = await response.json();
+      throw new Error(data.error);
+    }
+  } catch (error) {
+    console.error("Error deleting course:", error);
+    throw error;
   }
 }
 
@@ -494,4 +523,13 @@ document.addEventListener("DOMContentLoaded", () => {
     revertChanges();
     window.scrollTo({ top: 0, behavior: "instant" });
   });
+
+  setupDeleteButton({
+    containerSelector: "#course-table-body",
+    buttonSelector: ".delete-btn",
+    idAttribute: "data-id",
+    deleteFunction: deleteCourse,
+    reloadFunction: loadCourses,
+    itemName: "course",
+  })
 });

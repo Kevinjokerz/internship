@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  loadDegreePlan();
+  const sampleAcademicMapId = 1;
+  loadDegreePlan(sampleAcademicMapId);
   initModal("courseModal", "closeModal");
 });
 
-async function loadDegreePlan() {
+async function loadDegreePlan(academicMapId) {
   try {
-    planner = await fetchCourse();
+    planner = await fetchCourseForSampleAM(academicMapId);
     renderDegreePlan(planner);
   } catch (error) {
     console.error("Error fetching degree plan:", error);
@@ -15,7 +16,7 @@ async function loadDegreePlan() {
 function groupByYear(planners) {
   return planners.reduce((acc, planner) => {
     const year = planner.yearNumber;
-
+    if(!year) return acc;
     if (!acc[year]) {
       acc[year] = [];
     }
@@ -64,9 +65,11 @@ function renderDegreePlan(planners) {
   const container = document.getElementById("app");
   container.innerHTML = "";
 
-  let totalCredit4Years = 0;
+  let totalCreditAllYears = 0;
 
-  for (const year in plannerByYear) {
+  const years = Object.keys(plannerByYear).sort((a, b) => a - b);
+  const lastYear = years[years.length -1];
+  for (const year of years) {
     const yearPlanners = plannerByYear[year] || [];
 
     const fallPlanner = yearPlanners.find((p) => p.season === "Fall");
@@ -101,7 +104,7 @@ function renderDegreePlan(planners) {
 
     const yearTh = document.createElement("th");
     yearTh.classList.add("year-col");
-    yearTh.rowSpan = Number(year) === 4 ? totalRow + 1 : totalRow;
+    yearTh.rowSpan = year === lastYear ? totalRow + 1 : totalRow;
     yearTh.textContent = `Year ${year}`;
     headerRow.appendChild(yearTh);
 
@@ -210,9 +213,9 @@ function renderDegreePlan(planners) {
 
     tbody.appendChild(footerRow);
 
-    totalCredit4Years += fallTotal + springTotal;
+    totalCreditAllYears += fallTotal + springTotal;
 
-    if (Number(year) === 4) {
+    if (year === lastYear) {
       const extraRow = document.createElement("tr");
       const blankCell1 = document.createElement("td");
       const blankCell2 = document.createElement("td");
@@ -221,7 +224,7 @@ function renderDegreePlan(planners) {
       blankCell2.colSpan = 3;
       blankCell1.textContent = "";
       blankCell2.textContent = "";
-      totalIn4Years.textContent = `${totalCredit4Years}`;
+      totalIn4Years.textContent = `${totalCreditAllYears}`;
 
       extraRow.appendChild(blankCell1);
       extraRow.appendChild(blankCell2);

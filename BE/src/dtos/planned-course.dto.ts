@@ -1,8 +1,12 @@
 interface updatePlannedCourseDTO {
-  courseId: number;
-  yearNumber: number;
-  semesterName: "Semester 1" | "Semester 2";
-  season: "Fall" | "Spring ";
+  plannedCourseId: number,
+  year?: number,
+  semester?: string,
+  season?: string,
+  courseId?: number,
+  sortOrder?: number,
+  isActive?: boolean,
+  academicMapId: number
 }
 
 interface batchUpdatePlannedCoursesDTO {

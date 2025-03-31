@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const departments = deptData
     .filter((category) => category.isActive)
     .map((category) => category.categoryName);
-    console.log(departments);
     const departmentSelect = document.getElementById("course-department");
 
     if(departments && Array.isArray(departments)) {

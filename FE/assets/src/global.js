@@ -14,8 +14,40 @@ async function fetchAPI(url) {
   }
 }
 
-async function fetchCourse() {
-  return fetchAPI("http://localhost:3000/api/sample/degree-plan");
+async function fetchCourseForSampleAM(academicMapId) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/sample/degree-plan/${academicMapId}`
+    );
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.log(errorText);
+      alert("Fetch Error, please try again");
+      throw new Error(errorText);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching from:", url, error);
+    throw error;
+  }
+}
+
+async function fetchAcademicMapInfo(academicMapId) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/sample/get-academic-map-info/${academicMapId}`
+    );
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.log(errorText);
+      alert("Fetch Error, please try again");
+      throw new Error(errorText);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching from:", url, error);
+    throw error;
+  }
 }
 
 async function fetchAllCourses() {
@@ -24,6 +56,14 @@ async function fetchAllCourses() {
 
 async function fetchDepartment() {
   return fetchAPI("http://localhost:3000/api/sample/get-all-subject-category");
+}
+
+async function fetchAcademicMap() {
+  return fetchAPI("http://localhost:3000/api/sample/get-all-academic-map");
+}
+
+async function fetchCollege() {
+  return fetchAPI("http://localhost:3000/api/sample//get-all-colleges");
 }
 
 function initModal(modalId, closeBtnId) {
@@ -192,3 +232,8 @@ function setupDeleteButton({containerSelector, buttonSelector, idAttribute, dele
     }
   });
 }
+
+const validateSortOrders = (value) => {
+  const num = parseInt(value, 10);
+  return !isNaN(num) && num >= 0;
+};

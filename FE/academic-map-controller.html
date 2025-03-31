@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Degree Plan Controller</title>
+    <link rel="stylesheet" href="assets/css/course-controller.css" />
+    <link rel="stylesheet" href="assets/css/navbar.css" />
+    <link rel="stylesheet" href="assets/css/global.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav id="navBar">
+        <ul>
+          <li><a href="index.html">Sample Academic Map</a></li>
+          <li><a href="courses-controller.html">Courses Controller</a></li>
+          <li><a href="department-controller.html">Department Controller</a></li>
+          <li><a class="active" href="academic-map-controller.html">Academic Map Controller</a></li>
+        </ul>
+      </nav>
+
+      <h1>Academic Map Controller</h1>
+      <div class="button-container">
+        <button id="add-new">
+          <i class="fa-solid fa-plus"></i>
+          Add New Academic Map
+        </button>
+        <button id="save-btn" title="No changes to save">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save Changes
+        </button>
+        <button id="cancel-btn">
+          <i class="fa-solid fa-xmark"></i>
+          Cancel
+        </button>
+      </div>
+
+      <!--Add New Academic Map Modal-->
+      <div id="add-academic-map-modal" class="modal">
+        <div class="modal-content">
+          <h2>Add New Academic Map</h2>
+          <form id="add-academic-map-form">
+            <label for="degree-type">Degree Type:</label>
+            <select name="degree-type" id="degree-type" required>
+              <option value="">Select...</option>
+              <option value="Bachelor of Science">Bachelor of Science</option>
+              <option value="Bachelor of Art">Bachelor of Art</option>
+            </select>
+
+            <label for="major">Major:</label>
+            <input type="text" id="major" name="major" required>
+
+            <label for="college">College:</label>
+            <select name="college" id="college" required>
+              <option value="">Select...</option>
+              <!-- Dynamic rendering the remaining options -->
+            </select>
+
+            <label for="sort-order">Sort Order:</label>
+            <input type="number" id="sort-order" name="sort-order" min="0" required>
+
+            <div class="checkbox-container">
+                <label for="is-active" class="checkbox-label">Is Active:</label>
+                <input type="checkbox" id="is-active" name="is-active">
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" id="cancel-modal">Cancel</button>
+                <button type="submit" id="submit">Add New</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Add Existed Courses to an Academic Map Modal -->
+
+      <table id="academic-map-table">
+        <thead>
+          <tr>
+            <th>Academic Map ID</th>
+            <th>Degree Type</th>
+            <th>Major</th>
+            <th>College</th>
+            <th>Sort Order</th>
+            <th>Is Active</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="academic-map-table-body">
+          <!-- Dynamic rendering table data -->
+        </tbody>
+      </table>
+    </div>
+
+    <script src="https://kit.fontawesome.com/89c35a61e4.js" crossorigin="anonymous"></script>
+    <script src="assets/src/global.js"></script>
+    <script src="assets/src/academic-map-controller.js"></script>
+    <script src="assets/src/add-academic-map.js"></script>
+  </body>
+</html>
