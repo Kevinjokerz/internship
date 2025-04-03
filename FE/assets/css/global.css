@@ -214,6 +214,11 @@ input.number-input {
     background-color: white;
 }
 
+.no-border-white-bg {
+    border: none !important;
+    background-color: white;
+}
+
 .delete-btn {
     display: none;
     background: none;

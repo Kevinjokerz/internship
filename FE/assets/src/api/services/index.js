@@ -1,0 +1,5 @@
+export * from './academic-map.service'
+export * from './course.service'
+export * from './degree-plan.service'
+export * from './department.service'
+export * from './college.service'
